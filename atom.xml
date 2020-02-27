@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://clyzwangyuyang.github.io</id>
     <title>Gridea</title>
-    <updated>2020-02-27T04:23:06.952Z</updated>
+    <updated>2020-02-27T05:32:16.880Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://clyzwangyuyang.github.io"/>
     <link rel="self" href="https://clyzwangyuyang.github.io/atom.xml"/>
@@ -10,6 +10,151 @@
     <logo>https://clyzwangyuyang.github.io/images/avatar.png</logo>
     <icon>https://clyzwangyuyang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[ [USACO06FEB]奶牛零食]]></title>
+        <id>https://clyzwangyuyang.github.io/post/usaco06febnai-niu-ling-shi/</id>
+        <link href="https://clyzwangyuyang.github.io/post/usaco06febnai-niu-ling-shi/">
+        </link>
+        <updated>2020-02-27T04:42:29.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="description">Description:</h2>
+<p>约翰经常给产奶量高的奶牛发特殊津贴，于是很快奶牛们拥有了大笔不知该怎么花的钱．为此，约翰购置了N(1≤N≤2000)份美味的零食来卖给奶牛们．每天约翰售出一份零食．当然约翰希望这些零食全部售出后能得到最大的收益．这些零食有以下这些有趣的特性：</p>
+<p>•零食按照1．．N编号，它们被排成一列放在一个很长的盒子里．盒子的两端都有开口，约翰每<br>
+天可以从盒子的任一端取出最外面的一个．<br>
+•与美酒与好吃的奶酪相似，这些零食储存得越久就越好吃．当然，这样约翰就可以把它们卖出更高的价钱．<br>
+•每份零食的初始价值不一定相同．约翰进货时，第i份零食的初始价值为Vi(1≤Vi≤1000)．<br>
+•第i份零食如果在被买进后的第a天出售，则它的售价是vi×a．</p>
+<p>Vi的是从盒子顶端往下的第i份零食的初始价值．约翰告诉了你所有零食的初始价值，并希望你能帮他计算一下，在这些零食全被卖出后，他最多能得到多少钱．</p>
+<h2 id="analyze">Analyze:</h2>
+<p>剩余的零食是一个不断减少的区间，可以考虑区间DP。设f[l][r]表示将区间[l,r]的零食卖掉的最大价值。但是这样很难去转移。因为两端都可以卖零食，我们可以让头与尾对接，也就是将区间加倍， a[n + i ] = a[i]。f[l][r]就表示横跨区间的[l,r]最大价值。那么最后卖出的一定是l或者r，因为卖零食一定是从n与n + 1处向两边扩展。转移方程:</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>r</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>r</mi><mo>]</mo><mo separator="true">,</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>f</mi><mo>[</mo><mi>l</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>r</mi><mo>]</mo><mo>+</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>∗</mo><mi>a</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo separator="true">,</mo><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>r</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mi>l</mi><mi>e</mi><mi>n</mi><mo>∗</mo><mi>a</mi><mo>[</mo><mi>r</mi><mo>]</mo><mo>)</mo><mo>)</mo><mo separator="true">;</mo></mrow><annotation encoding="application/x-tex">f[l][r] = max(f[l][r], max(f[l + 1][r] + len * a[l], f[l][r - 1] + len * a[r])); 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.69444em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mord mathdefault">e</span><span class="mord mathdefault">n</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">a</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mclose">)</span><span class="mclose">)</span><span class="mpunct">;</span></span></span></span></span></p>
+<p>其中，len = r - l + 1</p>
+<pre><code class="language-cpp">
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+const int N = 4e3 + 100, INF = 0x3f3f3f3f;
+
+int f[N][N];
+int n, a[N];
+
+int main()
+{
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; i ++) {
+		scanf(&quot;%d&quot;, &amp;a[i]);
+		a[n + i] = a[i];
+	}
+	memset(f, 0xcf, sizeof(f));
+	f[n][n] = a[n], f[n + 1][n + 1] = a[n + 1];
+	int ans = 0;
+	for(int l = 2 * n; l &gt;= 1; -- l) {
+		for(int r = l; r &lt;= 2 * n; r ++) {
+			int len = r - l + 1;
+			if( l &gt; n + 1 || r &lt; n || len &gt; n)  continue;
+			f[l][r] = max(f[l][r], max(f[l + 1][r] + len * a[l], f[l][r - 1] + len * a[r]));
+		//	printf(&quot;f[%d, %d] = %d\n&quot;, l, r, f[l][r]);
+			if( len == n)  ans = max(ans, f[l][r]);
+		}
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+//53013649
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[[USACO16OPEN]262144 P]]></title>
+        <id>https://clyzwangyuyang.github.io/post/usaco16open262144-p/</id>
+        <link href="https://clyzwangyuyang.github.io/post/usaco16open262144-p/">
+        </link>
+        <updated>2020-02-27T04:32:20.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="description">Description:</h2>
+<p>贝西被她最近玩的一款游戏迷住了，游戏一开始有n个正整数，(2&lt;=n&lt;=262144)，范围在1-40。在一步中，贝西可以选相邻的两个相同的数，然后合并成一个比原来的大一的数（例如两个7合并成一个8)，目标是使得最大的数最大，请帮助Bessie来求最大值。</p>
+<h2 id="analyze">Analyze:</h2>
+<p>方法一 ： 可以用区间DP来做， 设f[l][r][x]表示区间[l,r]的数能否合并成x ，转移:</p>
+<p class='katex-block katex-error' title='ParseError: KaTeX parse error: Expected &#039;EOF&#039;, got &#039;&amp;&#039; at position 29: …f[l][k][x - 1] &amp;̲&amp; f[k + 1][r][x…'>f[l][r][x] = f[l][k][x - 1] &amp;&amp; f[k + 1][r][x - 1] 
+</p>
+<p>还可以设计成这样的状态， f[l][r]表示区间到r能合并出的最大数, 转移：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>r</mi><mo>]</mo><mo>=</mo><mi>m</mi><mi>a</mi><mi>x</mi><mo>(</mo><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>r</mi><mo>]</mo><mo separator="true">,</mo><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>k</mi><mo>]</mo><mo>+</mo><mn>1</mn><mo>)</mo><mi>i</mi><mi>f</mi><mo>(</mo><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>k</mi><mo>]</mo><mo>=</mo><mo>=</mo><mi>f</mi><mo>[</mo><mi>k</mi><mo>+</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>r</mi><mo>]</mo><mo>)</mo></mrow><annotation encoding="application/x-tex">f[l][r] = max(f[l][r], f[l][k] + 1)  if( f[l][k] == f[k + 1][r]) 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">a</span><span class="mord mathdefault">x</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">)</span><span class="mord mathdefault">i</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">(</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span></span><span class="base"><span class="strut" style="height:0.36687em;vertical-align:0em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03148em;">k</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.02778em;">r</span><span class="mclose">]</span><span class="mclose">)</span></span></span></span></span></p>
+<p>方法二：类似与倍增，可以设f[l][x]表示从l向左， 合并出x的位置， 转移：</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>x</mi><mo>]</mo><mo>=</mo><mi>f</mi><mo>[</mo><mi>f</mi><mo>[</mo><mi>l</mi><mo>]</mo><mo>[</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>]</mo><mo>+</mo><mn>1</mn><mo>]</mo><mo>[</mo><mi>x</mi><mo>−</mo><mn>1</mn><mo>]</mo></mrow><annotation encoding="application/x-tex">f[l][x] = f[ f[ l ][x - 1] + 1][x - 1] 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.10764em;">f</span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.01968em;">l</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span><span class="mopen">[</span><span class="mord mathdefault">x</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">−</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord">1</span><span class="mclose">]</span></span></span></span></span></p>
+<p>方法一:</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+const int N = 300;
+
+int a[N], n, ans;
+bool f[N][N][50];
+
+int main()
+{
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; i ++)  scanf(&quot;%d&quot;, &amp;a[i]);
+	for(int len = 1; len &lt;= n; len ++) {
+		for(int l = 1; l + len - 1 &lt;= n; l ++) {
+			int r = l + len - 1;
+		//	printf(&quot;[%d, %d]\n&quot;, l, r);
+			if( l == r) f[l][r][a[l]] = true;
+			else {
+				for(int num = 2; num &lt;= 49; num ++) {// f[l][r] 能否凑出数字num 
+					for(int k = l; k &lt; r; k ++) {
+						if( f[l][k][num - 1] &amp;&amp; f[k + 1][r][num - 1]) {
+							f[l][r][num] = true;
+							ans = max(ans, num);
+							break;
+						}
+					}
+				}
+			}
+		}
+	}
+	printf(&quot;%d\n&quot;, ans);
+	return 0;
+}
+</code></pre>
+<p>方法二:</p>
+<pre><code class="language-cpp">/*
+f[i][j] = f[f[i][j - 1][j - 1]
+*/
+
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+const int N = 262144 + 100;
+int f[N][65];
+int n, a[N], ans;
+
+int main()
+{
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt;= n; i ++) {
+		int x;
+		scanf(&quot;%d&quot;, &amp;x);
+		f[i][x] = i + 1;
+	}
+	for(int i = n; i &gt;= 1; -- i) {
+		for(int j = 2; j &lt;= 60; j ++) {
+			if(! f[i][j])  f[i][j] = f[f[i][j - 1]][j - 1];
+			if(f[i][j])  ans = max(ans, j);
+		}
+	}
+	printf(&quot;%d\n&quot;, ans);
+}
+</code></pre>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[[HNOI2010]合唱队]]></title>
         <id>https://clyzwangyuyang.github.io/post/hnoi2010he-chang-dui/</id>
