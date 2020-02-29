@@ -2,7 +2,7 @@
 <feed xmlns="http://www.w3.org/2005/Atom">
     <id>https://clyzwangyuyang.github.io</id>
     <title>Gridea</title>
-    <updated>2020-02-27T05:32:16.880Z</updated>
+    <updated>2020-02-29T13:18:36.526Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
     <link rel="alternate" href="https://clyzwangyuyang.github.io"/>
     <link rel="self" href="https://clyzwangyuyang.github.io/atom.xml"/>
@@ -10,6 +10,364 @@
     <logo>https://clyzwangyuyang.github.io/images/avatar.png</logo>
     <icon>https://clyzwangyuyang.github.io/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
+    <entry>
+        <title type="html"><![CDATA[牛站]]></title>
+        <id>https://clyzwangyuyang.github.io/post/niu-zhan/</id>
+        <link href="https://clyzwangyuyang.github.io/post/niu-zhan/">
+        </link>
+        <updated>2020-02-29T11:47:24.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="description">Description:</h2>
+<p>给定一张由T条边构成的无向图，点的编号为1~1000之间的整数。<br>
+求从起点S到终点E恰好经过N条边（可以重复经过）的最短路。</p>
+<p>数据范围:<br>
+2≤T≤100,<br>
+2≤N≤106</p>
+<h2 id="analyz">Analyz:</h2>
+<h3 id="算法1-bellman-ford算法-ont">算法1： Bellman-Ford算法 O(NT)</h3>
+<p>可以进行N次Bellman-Ford算法，求出恰好经过N条边的最短路。每次求的时候dis数组要清空。</p>
+<h3 id="算法2-倍增-ot3-log-n">算法2： 倍增 O(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>T</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">T^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span> log N )</h3>
+<p>d[i][j][c]表示从i到j经过<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><mi>c</mi></msup></mrow><annotation encoding="application/x-tex">2^c</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">c</span></span></span></span></span></span></span></span></span></span></span>条边的最短路<br>
+d[i][j][c] = min{ d[i][k][c - 1] + d[k][j][c - 1] }<br>
+最后将N进行二进制分解，进行合并。</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>N</mi><mo>=</mo><msub><mi>c</mi><mn>1</mn></msub><mo>∗</mo><msup><mn>2</mn><mn>0</mn></msup><mo>+</mo><msub><mi>c</mi><mn>2</mn></msub><mo>∗</mo><msup><mn>2</mn><mn>1</mn></msup><mo>+</mo><msub><mi>c</mi><mn>3</mn></msub><mo>∗</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><mo>…</mo><msub><mi>c</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>∗</mo><msup><mn>2</mn><mi>k</mi></msup><mo>+</mo><msub><mi>c</mi><mi>k</mi></msub><mo>∗</mo><msup><mn>2</mn><mrow><mi>k</mi><mo>+</mo><mn>1</mn></mrow></msup><mo>+</mo><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mi mathvariant="normal">.</mi><mo>…</mo></mrow><annotation encoding="application/x-tex">N = c_1 * 2 ^ 0  +  c_2 * 2 ^ 1 +  c_3 * 2 ^ 2 + \dots c_{k - 1} * 2 ^ {k } + c_k * 2 ^ {k + 1} + ... \dots
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.68333em;vertical-align:0em;"></span><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9474379999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9474379999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9474379999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8641079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.673611em;vertical-align:-0.208331em;"></span><span class="minner">…</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9824379999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.9824379999999999em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8991079999999999em;"><span style="top:-3.113em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">+</span><span class="mord mtight">1</span></span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.12em;vertical-align:0em;"></span><span class="mord">.</span><span class="mord">.</span><span class="mord">.</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="minner">…</span></span></span></span></span></p>
+<p>假设当前已经进行到第 k +１步<br>
+g[i]表示经过 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mn>1</mn></msub><mo>∗</mo><msup><mn>2</mn><mn>0</mn></msup><mo>+</mo><msub><mi>c</mi><mn>2</mn></msub><mo>∗</mo><msup><mn>2</mn><mn>1</mn></msup><mo>+</mo><msub><mi>c</mi><mn>3</mn></msub><mo>∗</mo><msup><mn>2</mn><mn>2</mn></msup><mo>+</mo><msub><mi>c</mi><mrow><mi>k</mi><mo>−</mo><mn>1</mn></mrow></msub><mo>∗</mo><msup><mn>2</mn><mi>k</mi></msup></mrow><annotation encoding="application/x-tex">c_1 * 2 ^ 0  +  c_2 * 2 ^ 1 +  c_3 * 2 ^ 2 +  c_{k - 1} * 2 ^ {k }</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">0</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">1</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.61528em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.30110799999999993em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.897438em;vertical-align:-0.08333em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">2</span></span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">+</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.673611em;vertical-align:-0.208331em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3361079999999999em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span><span class="mbin mtight">−</span><span class="mord mtight">1</span></span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.208331em;"><span></span></span></span></span></span></span><span class="mspace" style="margin-right:0.2222222222222222em;"></span><span class="mbin">∗</span><span class="mspace" style="margin-right:0.2222222222222222em;"></span></span><span class="base"><span class="strut" style="height:0.849108em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.849108em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span></span></span></span></span></span></span></span></span>步的最短路，f[i]表示经过$ c_1 * 2 ^ 0  +  c_2 * 2 ^ 1 +  c_3 * 2 ^ 2 +.....c{k - 1} * 2 ^ {k } + c_k * 2 ^ {k + 1}$步的最短路，那么<br>
+f[i] = min { g[k]  + d [ k ][ i ][ <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>c</mi><mi>k</mi></msub></mrow><annotation encoding="application/x-tex">c_k</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.58056em;vertical-align:-0.15em;"></span><span class="mord"><span class="mord mathdefault">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.33610799999999996em;"><span style="top:-2.5500000000000003em;margin-left:0em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span></span></span></span> ]},也就是在当前基础上在走<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mn>2</mn><msub><mi>c</mi><mi>k</mi></msub></msup></mrow><annotation encoding="application/x-tex">2^{c_k}</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.664392em;vertical-align:0em;"></span><span class="mord"><span class="mord">2</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.664392em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mtight"><span class="mord mathdefault mtight">c</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.3448em;"><span style="top:-2.3487714285714287em;margin-left:0em;margin-right:0.07142857142857144em;"><span class="pstrut" style="height:2.5em;"></span><span class="sizing reset-size3 size1 mtight"><span class="mord mathdefault mtight" style="margin-right:0.03148em;">k</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15122857142857138em;"><span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span></span>步。</p>
+<h3 id="算法3-倍增-ot3-log-n">算法3: 倍增 O(<span class="katex"><span class="katex-mathml"><math><semantics><mrow><msup><mi>T</mi><mn>3</mn></msup></mrow><annotation encoding="application/x-tex">T^3</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:0.8141079999999999em;vertical-align:0em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.13889em;">T</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">3</span></span></span></span></span></span></span></span></span></span></span> log N)</h3>
+<p>d[a + b][i][j]表示恰好经过a +ｂ条边的最短路。那么d[a + b][i][j] = d[a][i][k] + d[b][k][j],我们也可以通过倍增来进行优化。</p>
+<pre><code class="language-cpp">
+//算法1
+#pragma GCC optimize(2)
+#include &lt;cstring&gt;
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;algorithm&gt;
+#include &lt;cctype&gt;
+#define gc getchar()
+
+using namespace std;
+
+const int N = 2e2 + 10;
+int m, edges, st, ed;
+int raw[N], tot, dis[N], dis2[N];
+struct Edge {
+	int u, v, w;
+} e[N];
+
+inline int read() {
+	int x = 0, sgn = 1; char ch = gc;
+	while( !isdigit(ch)) { if( ch == '-') sgn = -1; ch = gc; }
+	while( isdigit(ch)) {  x = (x &lt;&lt; 3) + (x &lt;&lt; 1) + ch - '0'; ch = gc; }
+	return x * sgn;
+}
+
+int find(int val) {
+	return lower_bound(raw + 1, raw + tot + 1, val) - raw;
+}
+
+void Bellman_ford()
+{
+	memset(dis, 0x3f, sizeof(dis));
+	memset(dis2, 0x3f, sizeof(dis2));
+	dis2[st] = 0;
+	for(int i = 1; i &lt;= m; i ++) {
+		memset(dis, 0x3f, sizeof(dis));
+		for(int j = 1; j &lt;= tot; j ++) {
+		    int u = e[j].u, v = e[j].v;
+			dis[v] = min(dis[v], dis2[u] + e[j].w);
+		}
+		memcpy(dis2, dis, sizeof(dis));
+	}
+	printf(&quot;%d\n&quot;, dis[ed]);
+}
+
+int main()
+{
+	m = read(), edges = read(), st = read(), ed = read();
+	for(int i = 1; i &lt;= edges; i ++ ) {
+		int u, v, w;
+		w = read(), u = read(), v = read();
+		e[ ++ tot].w = w, e[tot].u = u, e[tot].v = v, raw[tot] = u;
+		e[ ++ tot].w = w, e[tot].v = u, e[tot].u = v, raw[tot] = v;
+	}
+	sort(raw + 1, raw + tot + 1);
+	int m = unique(raw + 1, raw + tot + 1) - (raw + 1);
+	st = find(st), ed = find(ed);
+	for(int i = 1; i &lt;= tot; i ++) {
+	    e[i].u = find(e[i].u), e[i].v = find(e[i].v);
+	}
+	Bellman_ford();
+	return 0;
+}
+
+
+//算法二
+
+#include &lt;cstdio&gt;
+#include &lt;iostream&gt;
+#include &lt;algorithm&gt;
+#include &lt;cmath&gt;
+#include &lt;cstring&gt;
+using namespace std;
+const int N = 205, M = 105;
+struct Edge{
+    int u, v, w;
+}e[M];
+int m, n, s, t, adj[N], tot, d[N][N][20], f[N], g[N];
+int L;
+
+int inline get(int x) {
+    return lower_bound(adj + 1, adj + 1 + tot, x) - adj;
+}
+int main(){
+    memset(d, 0x3f, sizeof d);
+    scanf(&quot;%d%d%d%d&quot;, &amp;n, &amp;m, &amp;s, &amp;t);
+    L = log2(n);
+    for (int i = 1; i &lt;= m; i++) {
+        scanf(&quot;%d%d%d&quot;, &amp;e[i].w, &amp;e[i].u, &amp;e[i].v);
+        adj[++tot] = e[i].u;
+        adj[++tot] = e[i].v;
+    }
+    sort(adj + 1, adj + 1 + tot);
+    tot = unique(adj + 1, adj + 1 + tot) - adj - 1;
+    for (int i = 1; i &lt;= m; i++) {
+        int u = get(e[i].u), v = get(e[i].v), w = e[i].w;
+        d[u][v][0] = d[v][u][0] = min(d[u][v][0], w);
+    }
+    s = get(s), t = get(t);
+
+    for (int c = 1; c &lt;= L; c++) {
+        for (int i = 1; i &lt;= tot; i++) {
+            for (int j = 1; j &lt;= tot; j++) {
+                for (int k = 1; k &lt;= tot; k++) {
+                    d[i][j][c] = min(d[i][j][c], d[i][k][c - 1] + d[k][j][c - 1]);
+                }
+            }
+        }
+    }
+
+    memset(g, 0x3f, sizeof g);
+    g[s] = 0;
+    for (int c = 0; c &lt;= L; c++) {
+        if(n &gt;&gt; c &amp; 1) {
+            memset(f, 0x3f, sizeof f);
+            for (int i = 1; i &lt;= tot; i++) 
+                for (int j = 1; j &lt;= tot; j++)
+                    f[i] = min(f[i], g[j] + d[j][i][c]);
+            memcpy(g, f, sizeof g);
+        }
+    }
+    printf(&quot;%d\n&quot;, f[t]);
+    return 0;
+}
+
+//算法3:
+
+#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;map&gt;
+using namespace std;
+
+const int N = 110;
+
+int g[N][N], res[N][N];
+int n, m, K, s, e;
+map&lt;int, int&gt; ids;
+
+void mul(int c[][N], int a[][N], int b[][N])
+{
+	static int tmp[N][N];
+	memset(tmp, 0x3f, sizeof(tmp));
+	for(int k = 1; k &lt;= n; k ++)
+	    for(int i = 1; i &lt;= n; i ++)
+	        for(int j = 1; j &lt;= n; j ++)
+	            tmp[i][j] = min(tmp[i][j], a[i][k] + b[k][j]);
+    memcpy(c, tmp, sizeof(tmp));
+}
+
+void qpow()
+{
+	memset(res, 0x3f, sizeof(res));
+	for(int i = 1; i &lt;= n; i ++)  res[i][i] = 0;//经过 0 条边的最短路 
+	for(; K; K &gt;&gt;= 1) {
+		if( K &amp; 1)  mul(res, res, g);
+		mul(g, g, g);
+	}
+}
+
+int main()
+{
+	scanf(&quot;%d%d%d%d&quot;, &amp;K, &amp;m, &amp;s, &amp;e);
+	memset(g, 0x3f, sizeof(g));
+	for(int i = 1; i &lt;= m; i ++) {
+		int w, u, v;
+		scanf(&quot;%d%d%d&quot;, &amp;w, &amp;u, &amp;v);
+		if( !ids.count(u))  ids[u] = ++n;
+		if( !ids.count(v))  ids[v] = ++n;
+		u = ids[u], v = ids[v];
+		g[u][v] = g[v][u] = min( g[u][v], w);
+	}
+	s = ids[s], e = ids[e];
+	qpow();
+	printf(&quot;%d\n&quot;, res[s][e]);
+	return 0;
+} 
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[NOI1997最优乘车]]></title>
+        <id>https://clyzwangyuyang.github.io/post/noi1997-zui-you-cheng-che/</id>
+        <link href="https://clyzwangyuyang.github.io/post/noi1997-zui-you-cheng-che/">
+        </link>
+        <updated>2020-02-28T12:12:51.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="description">Description:</h2>
+<p>H城是一个旅游胜地，每年都有成千上万的人前来观光。<br>
+为方便游客，巴士公司在各个旅游景点及宾馆，饭店等地都设置了巴士站并开通了一些单程巴士线路。<br>
+每条单程巴士线路从某个巴士站出发，依次途经若干个巴士站，最终到达终点巴士站。<br>
+一名旅客最近到H城旅游，他很想去S公园游玩，但如果从他所在的饭店没有一路巴士可以直接到达S公园，则他可能要先乘某一路巴士坐几站，再下来换乘同一站台的另一路巴士, 这样换乘几次后到达S公园。<br>
+现在用整数1,2,…N 给H城的所有的巴士站编号，约定这名旅客所在饭店的巴士站编号为1，S公园巴士站的编号为N。<br>
+写一个程序，帮助这名旅客寻找一个最优乘车方案,使他在从饭店乘车到S公园的过程中换乘的次数最少。</p>
+<p>输入格式:<br>
+第一行有两个数字M和N，表示开通了M条单程巴士线路，总共有N个车站。<br>
+从第二行到第M+1行依次给出了第1条到第M条巴士线路的信息，其中第i+1行给出的是第i条巴士线路的信息，从左至右按运行顺序依次给出了该线路上的所有站号，相邻两个站号之间用一个空格隔开。</p>
+<p>输出格式<br>
+共一行，如果无法乘巴士从饭店到达S公园，则输出”NO”，否则输出最少换乘次数，换乘次数为0表示不需换车即可到达。</p>
+<p>数据范围<br>
+1≤M≤100,<br>
+1≤N≤500</p>
+<h2 id="analyz">Analyz:</h2>
+<p>将问题转化一下，最优换乘次数 = 最少乘车次数 - 1， 那么如何求最少乘车次数呢？ 依次枚举每一条公交线路，如果A能到B，就连一条A到B的有向边，边权为1，表示A到B需要乘坐一辆车。最后用bfs求最短路或者Dijkstra求最短路就可以了。复杂度O(M * N ^ 2 ).</p>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[POJ 昂贵的聘礼]]></title>
+        <id>https://clyzwangyuyang.github.io/post/poj-ang-gui-de-pin-li/</id>
+        <link href="https://clyzwangyuyang.github.io/post/poj-ang-gui-de-pin-li/">
+        </link>
+        <updated>2020-02-28T11:30:01.000Z</updated>
+        <content type="html"><![CDATA[<h2 id="description">Description:</h2>
+<p>年轻的探险家来到了一个印第安部落里。</p>
+<p>在那里他和酋长的女儿相爱了，于是便向酋长去求亲。</p>
+<p>酋长要他用10000个金币作为聘礼才答应把女儿嫁给他。</p>
+<p>探险家拿不出这么多金币，便请求酋长降低要求。</p>
+<p>酋长说：”嗯，如果你能够替我弄到大祭司的皮袄，我可以只要8000金币。如果你能够弄来他的水晶球，那么只要5000金币就行了。”</p>
+<p>探险家就跑到大祭司那里，向他要求皮袄或水晶球，大祭司要他用金币来换，或者替他弄来其他的东西，他可以降低价格。</p>
+<p>探险家于是又跑到其他地方，其他人也提出了类似的要求，或者直接用金币换，或者找到其他东西就可以降低价格。</p>
+<p>不过探险家没必要用多样东西去换一样东西，因为不会得到更低的价格。</p>
+<p>探险家现在很需要你的帮忙，让他用最少的金币娶到自己的心上人。</p>
+<p>另外他要告诉你的是，在这个部落里，等级观念十分森严。</p>
+<p>地位差距超过一定限制的两个人之间不会进行任何形式的直接接触，包括交易。</p>
+<p>他是一个外来人，所以可以不受这些限制。</p>
+<p>但是如果他和某个地位较低的人进行了交易，地位较高的的人不会再和他交易，他们认为这样等于是间接接触，反过来也一样。</p>
+<p>因此你需要在考虑所有的情况以后给他提供一个最好的方案。</p>
+<p>为了方便起见，我们把所有的物品从1开始进行编号，酋长的允诺也看作一个物品，并且编号总是1。</p>
+<p>每个物品都有对应的价格P，主人的地位等级L，以及一系列的替代品Ti和该替代品所对应的”优惠”Vi。</p>
+<p>如果两人地位等级差距超过了M，就不能”间接交易”。</p>
+<p>你必须根据这些数据来计算出探险家最少需要多少金币才能娶到酋长的女儿。</p>
+<p>输入格式<br>
+输入第一行是两个整数M，N，依次表示地位等级差距限制和物品的总数。</p>
+<p>接下来按照编号从小到大依次给出了N个物品的描述。</p>
+<p>每个物品的描述开头是三个非负整数P、L、X，依次表示该物品的价格、主人的地位等级和替代品总数。</p>
+<p>接下来X行每行包括两个整数T和V，分别表示替代品的编号和”优惠价格”。</p>
+<p>输出格式<br>
+输出最少需要的金币数。</p>
+<p>数据范围:<br>
+1≤N≤100,<br>
+1≤P≤10000,<br>
+1≤L,M≤ N,<br>
+0≤X&lt; N</p>
+<h2 id="analyz">Analyz:</h2>
+<p>题目中最关键的信息就是，一个物品可以用其他物品来替代，那么转化一下，就变成：如果Ａ可以用Ｂ来替代，那么就连一条从B到A的有向边。最后，建立一个超级源点，从源点向每个点连一条有向边,权值为直接购买该商品的价格。那么最终的答案为从超级源点到一号点的最短路, 复杂度为O(N^2 ), 最朴素的 djkstra。但是题目中还有一个等级差距限制，我们发现M的范围比较小，可以直接暴力枚举等级交易区间，就是只跟等级区间在[L,R]中的人交易，复杂度为O( N^2 )，总复杂度为<span class="katex"><span class="katex-mathml"><math><semantics><mrow><mi>O</mi><mo>(</mo><msup><mi>N</mi><mn>4</mn></msup><mo>)</mo></mrow><annotation encoding="application/x-tex">O(N^4)</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1.064108em;vertical-align:-0.25em;"></span><span class="mord mathdefault" style="margin-right:0.02778em;">O</span><span class="mopen">(</span><span class="mord"><span class="mord mathdefault" style="margin-right:0.10903em;">N</span><span class="msupsub"><span class="vlist-t"><span class="vlist-r"><span class="vlist" style="height:0.8141079999999999em;"><span style="top:-3.063em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight">4</span></span></span></span></span></span></span></span><span class="mclose">)</span></span></span></span>.</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+#include &lt;vector&gt;
+
+using namespace std;
+typedef pair&lt;int, int&gt; PII;
+const int N = 100 + 10, INF = 1e9 + 7;
+int m, n;
+int g[N][N], grade[N], dis[N];
+bool vis[N];
+vector&lt;PII&gt; vec[N];//替代品的编号 , 优惠价格 
+
+void Build()
+{
+	for(int i = 1; i &lt;= n; i ++) {
+		for(int j = 0, sz = vec[i].size(); j &lt; sz; j ++) {
+			int v = vec[i][j].first, w = vec[i][j].second;
+			g[v][i] = w;
+		}
+	}
+}
+
+int Dijkstra(int l, int r)
+{
+	memset(vis, 0, sizeof(vis));
+	memset(dis, 0x3f, sizeof(dis));
+	dis[0] = 0;
+	for(int i = 1; i &lt;= n; i ++) {
+		int x = n + 1;
+		for(int j = 0; j &lt;= n; j ++) 
+		    if( !vis[j] &amp;&amp; ( x == n + 1 || dis[j] &lt; dis[x])) x = j;
+        vis[x] = true;
+        for(int y = 1; y &lt;= n; y ++)
+        	if( dis[y] &gt; dis[x] + g[x][y] &amp;&amp; grade[y] &gt;= l &amp;&amp; grade[y] &lt;= r)
+        	    dis[y] =  dis[x] + g[x][y];
+	}
+	return dis[1];
+}
+
+int main()
+{
+	scanf(&quot;%d%d&quot;, &amp;m, &amp;n);
+	memset(g, 0x3f, sizeof(g));
+	for(int i = 1; i &lt;= n; i ++) {
+		int w, cnt;
+		scanf(&quot;%d%d%d&quot;, &amp;w, &amp;grade[i], &amp;cnt);
+		g[0][i] = w;
+		while(cnt --) {
+			int p;
+			scanf(&quot;%d%d&quot;, &amp;p, &amp;w);
+			vec[i].push_back(make_pair(p, w));
+		}
+	}
+	Build();//建图 
+	int res = INF;
+	for(int i = 1; i &lt;= n; i ++) {
+		for(int j = i; j &lt;= n &amp;&amp; j - i &lt;= m; j ++)
+		    res = min( Dijkstra(i, j), res);
+	}
+	printf(&quot;%d\n&quot;, res);
+	return 0;
+} 
+
+</code></pre>
+]]></content>
+    </entry>
+    <entry>
+        <title type="html"><![CDATA[OI刷题计划]]></title>
+        <id>https://clyzwangyuyang.github.io/post/oi-shua-ti-ji-hua/</id>
+        <link href="https://clyzwangyuyang.github.io/post/oi-shua-ti-ji-hua/">
+        </link>
+        <updated>2020-02-28T10:50:04.000Z</updated>
+        <content type="html"><![CDATA[<p>动态规划DP:奇数日<br>
+进阶指南, 训练指南，入门经典DP问题</p>
+<p>数学：偶数日<br>
+Acwing算法提高课<br>
+上交组合数学<br>
+进阶指南, 训练指南，入门经典数学问题</p>
+<p>上午:<br>
+11:00  -- 13 : 00<br>
+晚上:<br>
+6:00 - 9:00</p>
+<p>数据结构，图论。</p>
+]]></content>
+    </entry>
     <entry>
         <title type="html"><![CDATA[ [USACO06FEB]奶牛零食]]></title>
         <id>https://clyzwangyuyang.github.io/post/usaco06febnai-niu-ling-shi/</id>
