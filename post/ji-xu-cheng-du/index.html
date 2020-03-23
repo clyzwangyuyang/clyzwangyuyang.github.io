@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8" >
+
+<title>积蓄程度 | Gridea</title>
+
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.7.2/css/all.css" integrity="sha384-fnmOCqbTlWIlj8LyTjo7mOUStjsKC4pOpQbqyi7RrhN7udi9RwhKkMHpvLbHG9Sr" crossorigin="anonymous">
+<link rel="shortcut icon" href="https://clyzwangyuyang.github.io/favicon.ico?v=1584965307063">
+<link rel="stylesheet" href="https://clyzwangyuyang.github.io/styles/main.css">
+
+
+
+<link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+<script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+
+
+
+    <meta name="description" content="Description:
+有一个树形的水系，由 N-1 条河道和 N 个交叉点组成。
+我们可以把交叉点看作树中的节点，编号为 1~N，河道则看作树中的无向边。
+每条河道都有一个容量，连接 x 与 y 的河道的容量记为 c(x,y)。
+河道中..." />
+    <meta name="keywords" content="树形DP,二次扫描与换根法" />
+  </head>
+  <body>
+    <div id="app" class="main">
+
+      <div class="sidebar" :class="{ 'full-height': menuVisible }">
+  <div class="top-container" data-aos="fade-right">
+    <div class="top-header-container">
+      <a class="site-title-container" href="https://clyzwangyuyang.github.io">
+        <img src="https://clyzwangyuyang.github.io/images/avatar.png?v=1584965307063" class="site-logo">
+        <h1 class="site-title">Gridea</h1>
+      </a>
+      <div class="menu-btn" @click="menuVisible = !menuVisible">
+        <div class="line"></div>
+      </div>
+    </div>
+    <div>
+      
+        
+          <a href="/" class="site-nav">
+            首页
+          </a>
+        
+      
+        
+          <a href="/archives" class="site-nav">
+            归档
+          </a>
+        
+      
+        
+          <a href="/tags" class="site-nav">
+            标签
+          </a>
+        
+      
+        
+          <a href="/post/about" class="site-nav">
+            关于
+          </a>
+        
+      
+    </div>
+  </div>
+  <div class="bottom-container" data-aos="flip-up" data-aos-offset="0">
+    <div class="social-container">
+      
+        
+      
+        
+      
+        
+      
+        
+      
+        
+      
+    </div>
+    <div class="site-description">
+      书是我最好的朋友。
+    </div>
+    <div class="site-footer">
+      Powered by <a href="https://github.com/getgridea/gridea" target="_blank">Gridea</a> | <a class="rss" href="https://clyzwangyuyang.github.io/atom.xml" target="_blank">RSS</a>
+    </div>
+  </div>
+</div>
+
+
+      <div class="main-container">
+        <div class="content-container" data-aos="fade-up">
+          <div class="post-detail">
+            <h2 class="post-title">积蓄程度</h2>
+            <div class="post-date">2020-03-07</div>
+            
+            <div class="post-content" v-pre>
+              <h2 id="description">Description:</h2>
+<p>有一个树形的水系，由 N-1 条河道和 N 个交叉点组成。</p>
+<p>我们可以把交叉点看作树中的节点，编号为 1~N，河道则看作树中的无向边。</p>
+<p>每条河道都有一个容量，连接 x 与 y 的河道的容量记为 c(x,y)。</p>
+<p>河道中单位时间流过的水量不能超过河道的容量。</p>
+<p>有一个节点是整个水系的发源地，可以源源不断地流出水，我们称之为源点。</p>
+<p>除了源点之外，树中所有度数为 1 的节点都是入海口，可以吸收无限多的水，我们称之为汇点。</p>
+<p>也就是说，水系中的水从源点出发，沿着每条河道，最终流向各个汇点。</p>
+<p>在整个水系稳定时，每条河道中的水都以单位时间固定的水量流向固定的方向。</p>
+<p>除源点和汇点之外，其余各点不贮存水，也就是流入该点的河道水量之和等于从该点流出的河道水量之和。</p>
+<p>整个水系的流量就定义为源点单位时间发出的水量。</p>
+<p>在流量不超过河道容量的前提下，求哪个点作为源点时，整个水系的流量最大，输出这个最大值。</p>
+<h2 id="solution">Solution:</h2>
+<p>如果直接设f[u]表示以u为源点时整个水系的最大流量，那么不太好转移， 因为u的子节点与父节点都会影响f[u]。</p>
+<p>设 <span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>s</mi></msub><mo>[</mo><mi>u</mi><mo>]</mo></mrow><annotation encoding="application/x-tex">D_s[u]</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span></span></span></span>表示以u为根的 <strong>子树</strong> 中的最大流量。那么可以自下而上进行更新.</p>
+<p class='katex-block'><span class="katex-display"><span class="katex"><span class="katex-mathml"><math><semantics><mrow><msub><mi>D</mi><mi>s</mi></msub><mo>[</mo><mi>u</mi><mo>]</mo><mo>=</mo><munder><mo>∑</mo><mrow><mi>v</mi><mo>⊆</mo><mi>s</mi><mi>o</mi><mi>n</mi><mo>(</mo><mi>u</mi><mo>)</mo></mrow></munder><mi>m</mi><mi>i</mi><mi>n</mi><mrow><mo>{</mo><mi>c</mi><mo>(</mo><mi>x</mi><mo separator="true">,</mo><mi>y</mi><mo>)</mo><mo separator="true">,</mo><msub><mi>D</mi><mi>s</mi></msub><mo>[</mo><mi>v</mi><mo>]</mo><mo>}</mo></mrow></mrow><annotation encoding="application/x-tex">D_s[u] = \sum_{v \subseteq son(u)} min{ \{ c(x, y), D_s[v] \} } 
+</annotation></semantics></math></span><span class="katex-html" aria-hidden="true"><span class="base"><span class="strut" style="height:1em;vertical-align:-0.25em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mord mathdefault">u</span><span class="mclose">]</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span><span class="mrel">=</span><span class="mspace" style="margin-right:0.2777777777777778em;"></span></span><span class="base"><span class="strut" style="height:2.5660100000000003em;vertical-align:-1.516005em;"></span><span class="mop op-limits"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:1.050005em;"><span style="top:-1.808995em;margin-left:0em;"><span class="pstrut" style="height:3.05em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mtight"><span class="mord mathdefault mtight" style="margin-right:0.03588em;">v</span><span class="mrel mtight">⊆</span><span class="mord mathdefault mtight">s</span><span class="mord mathdefault mtight">o</span><span class="mord mathdefault mtight">n</span><span class="mopen mtight">(</span><span class="mord mathdefault mtight">u</span><span class="mclose mtight">)</span></span></span></span><span style="top:-3.0500049999999996em;"><span class="pstrut" style="height:3.05em;"></span><span><span class="mop op-symbol large-op">∑</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:1.516005em;"><span></span></span></span></span></span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault">m</span><span class="mord mathdefault">i</span><span class="mord mathdefault">n</span><span class="mord"><span class="mopen">{</span><span class="mord mathdefault">c</span><span class="mopen">(</span><span class="mord mathdefault">x</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord mathdefault" style="margin-right:0.03588em;">y</span><span class="mclose">)</span><span class="mpunct">,</span><span class="mspace" style="margin-right:0.16666666666666666em;"></span><span class="mord"><span class="mord mathdefault" style="margin-right:0.02778em;">D</span><span class="msupsub"><span class="vlist-t vlist-t2"><span class="vlist-r"><span class="vlist" style="height:0.151392em;"><span style="top:-2.5500000000000003em;margin-left:-0.02778em;margin-right:0.05em;"><span class="pstrut" style="height:2.7em;"></span><span class="sizing reset-size6 size3 mtight"><span class="mord mathdefault mtight">s</span></span></span></span><span class="vlist-s">​</span></span><span class="vlist-r"><span class="vlist" style="height:0.15em;"><span></span></span></span></span></span></span><span class="mopen">[</span><span class="mord mathdefault" style="margin-right:0.03588em;">v</span><span class="mclose">]</span><span class="mclose">}</span></span></span></span></span></span></p>
+<p>接下来进行换根：<br>
+设f[u]表示以u为源点时整个水系的最大流量。<br>
+考虑u的子节点v，f[u] - min( f[u] - min(d[v], c(u, v),), c(u, v) )表示从u流出并且不流经v的最大流量。那么我们就可以用u来求它的子节点了。</p>
+<pre><code class="language-cpp">#include &lt;iostream&gt;
+#include &lt;cstdio&gt;
+#include &lt;cstring&gt;
+using namespace std;
+
+const int N = 2e5 + 100;
+int d[N], f[N], n, ind[N], head[N], idx;
+struct Edge {
+	int v , w, nxt;
+} e[N &lt;&lt; 1];
+
+void AddEdge(int u, int v, int w) {
+	e[ ++ idx].v = v, e[idx].w = w, e[idx].nxt = head[u];
+	head[u] = idx;
+}
+
+int dp(int u, int fa) {
+	for(int i = head[u]; i; i = e[i].nxt) {
+		int v = e[i].v;
+		if( v == fa)  continue;
+		if( ind[v] == 1)  d[u] += e[i].w;
+		else  d[u] += min(e[i].w, dp(v, u));
+	}
+	return d[u];
+}
+
+void dfs(int u, int fa) {
+	for(int i = head[u]; i; i = e[i].nxt) {
+		int v = e[i].v;
+		if( v == fa)  continue;
+		if( ind[u] == 1)  f[v] = e[i].w + d[v];
+		else f[v] = min( f[u] - min(e[i].w, d[v]), e[i].w) + d[v];
+		dfs(v, u);
+	}
+}
+
+void solve()
+{
+	memset(head, 0, sizeof(head));
+	memset(ind, 0, sizeof(ind));
+	memset(d, 0, sizeof(d));
+	memset(f, 0, sizeof(f));
+	idx = 0;
+	scanf(&quot;%d&quot;, &amp;n);
+	for(int i = 1; i &lt; n; i ++ ) {
+		int u, v, w;
+		scanf(&quot;%d%d%d&quot;, &amp;u, &amp;v, &amp;w);
+		AddEdge(u, v, w), AddEdge(v, u, w);
+		ind[u] ++, ind[v] ++;
+	}
+	dp(1, -1);
+	f[1] = d[1];
+	dfs(1, -1);
+	int ans = 0;
+	for(int i = 1; i &lt;= n; i ++) 
+	    ans = max(ans, f[i]);
+	printf(&quot;%d\n&quot;, ans);
+}
+
+int main()
+{
+	int T;
+	scanf(&quot;%d&quot;, &amp;T);
+	while( T --) {
+		solve();
+	}
+	return 0;
+}
+</code></pre>
+
+            </div>
+            
+              <div class="tag-container">
+                
+                  <a href="https://clyzwangyuyang.github.io/tag/cFbvwjhXA/" class="tag">
+                    树形DP
+                  </a>
+                
+                  <a href="https://clyzwangyuyang.github.io/tag/-97anwM3wd/" class="tag">
+                    二次扫描与换根法
+                  </a>
+                
+              </div>
+            
+            
+              <div class="next-post">
+                <div class="next">下一篇</div>
+                <a href="https://clyzwangyuyang.github.io/post/niu-zhan/">
+                  <h3 class="post-title">
+                    牛站
+                  </h3>
+                </a>
+              </div>
+            
+
+            
+
+          </div>
+
+        </div>
+      </div>
+    </div>
+
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+<script type="application/javascript">
+
+AOS.init();
+
+var app = new Vue({
+  el: '#app',
+  data: {
+    menuVisible: false,
+  },
+})
+
+</script>
+
+
+
+
+
+
+  </body>
+</html>
