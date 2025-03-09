@@ -1,19 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-    <id>https://clyzwangyuyang.github.io</id>
+    <id>https://wyuyang.me</id>
     <title>Gridea</title>
     <updated>2020-03-23T12:08:29.817Z</updated>
     <generator>https://github.com/jpmonette/feed</generator>
-    <link rel="alternate" href="https://clyzwangyuyang.github.io"/>
-    <link rel="self" href="https://clyzwangyuyang.github.io/atom.xml"/>
+    <link rel="alternate" href="https://wyuyang.me"/>
+    <link rel="self" href="https://wyuyang.me/atom.xml"/>
     <subtitle>书是我最好的朋友。</subtitle>
-    <logo>https://clyzwangyuyang.github.io/images/avatar.png</logo>
-    <icon>https://clyzwangyuyang.github.io/favicon.ico</icon>
+    <logo>https://wyuyang.me/images/avatar.png</logo>
+    <icon>https://wyuyang.me/favicon.ico</icon>
     <rights>All rights reserved 2020, Gridea</rights>
     <entry>
         <title type="html"><![CDATA[牡牛和牝牛]]></title>
-        <id>https://clyzwangyuyang.github.io/post/mu-niu-he-pin-niu/</id>
-        <link href="https://clyzwangyuyang.github.io/post/mu-niu-he-pin-niu/">
+        <id>https://wyuyang.me/post/mu-niu-he-pin-niu/</id>
+        <link href="https://wyuyang.me/post/mu-niu-he-pin-niu/">
         </link>
         <updated>2020-03-23T11:58:26.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -51,8 +51,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[佳佳的斐波那契]]></title>
-        <id>https://clyzwangyuyang.github.io/post/jia-jia-de-fei-bo-na-qi/</id>
-        <link href="https://clyzwangyuyang.github.io/post/jia-jia-de-fei-bo-na-qi/">
+        <id>https://wyuyang.me/post/jia-jia-de-fei-bo-na-qi/</id>
+        <link href="https://wyuyang.me/post/jia-jia-de-fei-bo-na-qi/">
         </link>
         <updated>2020-03-20T12:26:33.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -135,8 +135,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[积蓄程度]]></title>
-        <id>https://clyzwangyuyang.github.io/post/ji-xu-cheng-du/</id>
-        <link href="https://clyzwangyuyang.github.io/post/ji-xu-cheng-du/">
+        <id>https://wyuyang.me/post/ji-xu-cheng-du/</id>
+        <link href="https://wyuyang.me/post/ji-xu-cheng-du/">
         </link>
         <updated>2020-03-07T12:18:39.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -232,8 +232,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[牛站]]></title>
-        <id>https://clyzwangyuyang.github.io/post/niu-zhan/</id>
-        <link href="https://clyzwangyuyang.github.io/post/niu-zhan/">
+        <id>https://wyuyang.me/post/niu-zhan/</id>
+        <link href="https://wyuyang.me/post/niu-zhan/">
         </link>
         <updated>2020-02-29T11:47:24.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -440,8 +440,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[NOI1997最优乘车]]></title>
-        <id>https://clyzwangyuyang.github.io/post/noi1997-zui-you-cheng-che/</id>
-        <link href="https://clyzwangyuyang.github.io/post/noi1997-zui-you-cheng-che/">
+        <id>https://wyuyang.me/post/noi1997-zui-you-cheng-che/</id>
+        <link href="https://wyuyang.me/post/noi1997-zui-you-cheng-che/">
         </link>
         <updated>2020-02-28T12:12:51.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -465,8 +465,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[POJ 昂贵的聘礼]]></title>
-        <id>https://clyzwangyuyang.github.io/post/poj-ang-gui-de-pin-li/</id>
-        <link href="https://clyzwangyuyang.github.io/post/poj-ang-gui-de-pin-li/">
+        <id>https://wyuyang.me/post/poj-ang-gui-de-pin-li/</id>
+        <link href="https://wyuyang.me/post/poj-ang-gui-de-pin-li/">
         </link>
         <updated>2020-02-28T11:30:01.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -571,8 +571,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[OI刷题计划]]></title>
-        <id>https://clyzwangyuyang.github.io/post/oi-shua-ti-ji-hua/</id>
-        <link href="https://clyzwangyuyang.github.io/post/oi-shua-ti-ji-hua/">
+        <id>https://wyuyang.me/post/oi-shua-ti-ji-hua/</id>
+        <link href="https://wyuyang.me/post/oi-shua-ti-ji-hua/">
         </link>
         <updated>2020-02-28T10:50:04.000Z</updated>
         <content type="html"><![CDATA[<p>动态规划DP:奇数日<br>
@@ -590,8 +590,8 @@ Acwing算法提高课<br>
     </entry>
     <entry>
         <title type="html"><![CDATA[ [USACO06FEB]奶牛零食]]></title>
-        <id>https://clyzwangyuyang.github.io/post/usaco06febnai-niu-ling-shi/</id>
-        <link href="https://clyzwangyuyang.github.io/post/usaco06febnai-niu-ling-shi/">
+        <id>https://wyuyang.me/post/usaco06febnai-niu-ling-shi/</id>
+        <link href="https://wyuyang.me/post/usaco06febnai-niu-ling-shi/">
         </link>
         <updated>2020-02-27T04:42:29.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -647,8 +647,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[[USACO16OPEN]262144 P]]></title>
-        <id>https://clyzwangyuyang.github.io/post/usaco16open262144-p/</id>
-        <link href="https://clyzwangyuyang.github.io/post/usaco16open262144-p/">
+        <id>https://wyuyang.me/post/usaco16open262144-p/</id>
+        <link href="https://wyuyang.me/post/usaco16open262144-p/">
         </link>
         <updated>2020-02-27T04:32:20.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
@@ -735,8 +735,8 @@ int main()
     </entry>
     <entry>
         <title type="html"><![CDATA[[HNOI2010]合唱队]]></title>
-        <id>https://clyzwangyuyang.github.io/post/hnoi2010he-chang-dui/</id>
-        <link href="https://clyzwangyuyang.github.io/post/hnoi2010he-chang-dui/">
+        <id>https://wyuyang.me/post/hnoi2010he-chang-dui/</id>
+        <link href="https://wyuyang.me/post/hnoi2010he-chang-dui/">
         </link>
         <updated>2020-02-27T03:51:12.000Z</updated>
         <content type="html"><![CDATA[<h2 id="description">Description:</h2>
