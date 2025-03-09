@@ -1,0 +1,800 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <title>英语听写</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #4361ee;
+            --primary-light: #4895ef;
+            --primary-dark: #3f37c9;
+            --secondary: #f72585;
+            --accent: #4cc9f0;
+            --success: #06d6a0;
+            --warning: #ffd166;
+            --error: #ef476f;
+            --background: #f8f9fa;
+            --card-bg: #ffffff;
+            --text: #212529;
+            --text-light: #6c757d;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Nunito', Arial, sans-serif;
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: var(--background);
+            color: var(--text);
+            line-height: 1.6;
+        }
+
+        .container {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 5px 20px var(--shadow);
+            transition: all 0.3s ease;
+        }
+
+        h1 {
+            text-align: center;
+            margin-bottom: 25px;
+            color: var(--primary-dark);
+            font-size: 28px;
+            font-weight: 700;
+        }
+
+        #sentence-container {
+            margin-bottom: 30px;
+            padding: 20px;
+            border-radius: 8px;
+            background-color: rgba(67, 97, 238, 0.05);
+            border-left: 4px solid var(--primary);
+        }
+
+        #dictation-display {
+            font-size: 22px;
+            letter-spacing: 1px;
+            line-height: 1.8;
+            transition: all 0.3s ease;
+            padding: 15px;
+            min-height: 80px;
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .word {
+            display: inline-block;
+            transition: transform 0.2s ease, color 0.3s ease;
+        }
+
+        .word.error-flash {
+            color: var(--error);
+            font-weight: bold;
+            animation: shake 0.5s cubic-bezier(.36,.07,.19,.97) both;
+        }
+
+        @keyframes shake {
+            10%, 90% { transform: translate3d(-1px, 0, 0); }
+            20%, 80% { transform: translate3d(2px, 0, 0); }
+            30%, 50%, 70% { transform: translate3d(-3px, 0, 0); }
+            40%, 60% { transform: translate3d(3px, 0, 0); }
+        }
+
+        .file-inputs {
+            margin-bottom: 30px;
+            padding: 20px;
+            border: 2px dashed #d8e2ef;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+            background-color: rgba(248, 249, 250, 0.8);
+        }
+
+        .file-inputs:hover {
+            border-color: var(--primary-light);
+            background-color: rgba(67, 97, 238, 0.05);
+        }
+
+        .file-row {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .file-row label {
+            flex: 0 0 150px;
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .file-row input[type="file"] {
+            flex: 1;
+            padding: 10px;
+            border-radius: 6px;
+            border: 1px solid #e2e8f0;
+            cursor: pointer;
+        }
+
+        .file-row input[type="file"]::-webkit-file-upload-button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+            transition: background-color 0.2s;
+        }
+
+        .file-row input[type="file"]::-webkit-file-upload-button:hover {
+            background-color: var(--primary-dark);
+        }
+
+        .status {
+            margin-top: 15px;
+            font-style: italic;
+            color: var(--text-light);
+            text-align: center;
+            font-size: 14px;
+        }
+
+        .controls {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin-bottom: 25px;
+            justify-content: center;
+        }
+
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-width: 120px;
+            box-shadow: 0 3px 10px rgba(67, 97, 238, 0.2);
+        }
+
+        button:hover {
+            background-color: var(--primary-dark);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(67, 97, 238, 0.3);
+        }
+
+        button:active {
+            transform: translateY(1px);
+            box-shadow: 0 2px 8px rgba(67, 97, 238, 0.2);
+        }
+
+        button:disabled {
+            background-color: #cbd5e0;
+            cursor: not-allowed;
+            box-shadow: none;
+            transform: none;
+        }
+
+        #play-btn {
+            background-color: var(--success);
+            box-shadow: 0 3px 10px rgba(6, 214, 160, 0.2);
+        }
+
+        #play-btn:hover {
+            background-color: #05b589;
+            box-shadow: 0 5px 15px rgba(6, 214, 160, 0.3);
+        }
+
+        #show-answer-btn {
+            background-color: var(--secondary);
+            box-shadow: 0 3px 10px rgba(247, 37, 133, 0.2);
+        }
+
+        #show-answer-btn:hover {
+            background-color: #e91d77;
+            box-shadow: 0 5px 15px rgba(247, 37, 133, 0.3);
+        }
+
+        #hint-btn {
+            background-color: var(--warning);
+            color: #333;
+            box-shadow: 0 3px 10px rgba(255, 209, 102, 0.2);
+        }
+
+        #hint-btn:hover {
+            background-color: #ffc233;
+            box-shadow: 0 5px 15px rgba(255, 209, 102, 0.3);
+        }
+
+        .success-message {
+            color: var(--success);
+            font-weight: bold;
+            text-align: center;
+            margin-bottom: 20px;
+            font-size: 18px;
+            padding: 10px;
+            border-radius: 8px;
+            background-color: rgba(6, 214, 160, 0.1);
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all 0.5s ease;
+        }
+
+        .success-message.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .progress-container {
+            margin-top: 30px;
+            padding: 15px;
+            border-radius: 8px;
+            background-color: rgba(248, 249, 250, 0.8);
+            border-top: 1px solid #edf2f7;
+        }
+
+        .progress-info {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 8px;
+        }
+
+        .progress-label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .progress-counter {
+            font-size: 14px;
+            color: var(--text-light);
+            font-weight: 600;
+        }
+
+        progress {
+            width: 100%;
+            height: 10px;
+            border-radius: 5px;
+            overflow: hidden;
+            appearance: none;
+            -webkit-appearance: none;
+        }
+
+        progress::-webkit-progress-bar {
+            background-color: #e2e8f0;
+            border-radius: 5px;
+        }
+
+        progress::-webkit-progress-value {
+            background: linear-gradient(to right, var(--primary), var(--primary-light));
+            border-radius: 5px;
+            transition: width 0.5s ease;
+        }
+
+        .selector {
+            display: flex;
+            gap: 12px;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .selector label {
+            font-weight: 600;
+            color: var(--primary-dark);
+        }
+
+        .selector input {
+            width: 80px;
+            padding: 10px;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .selector input:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(67, 97, 238, 0.2);
+        }
+
+        .help-text {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 14px;
+            color: var(--text-light);
+        }
+
+        .keyboard-shortcuts {
+            margin-top: 5px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <h1>英语听写练习</h1>
+
+    <!-- 文件选择区域 -->
+    <div class="file-inputs">
+        <div class="file-row">
+            <label for="audio-file">选择音频文件:</label>
+            <input type="file" id="audio-file" accept=".wav,.mp3">
+        </div>
+        <div class="file-row">
+            <label for="subtitle-file">选择字幕文件:</label>
+            <input type="file" id="subtitle-file" accept=".srt">
+        </div>
+        <div class="status" id="load-status">请选择音频和字幕文件开始练习</div>
+    </div>
+    
+    <!-- 显示听写进度区域 -->
+    <div id="sentence-container">
+        <div>
+            <div class="progress-label">您的听写内容:</div>
+            <div id="dictation-display"></div>
+        </div>
+    </div>
+    
+    <!-- 句子选择器 -->
+    <div class="selector">
+        <label for="sentence-selector">跳转到句子:</label>
+        <input type="number" id="sentence-selector" min="1" value="1" disabled>
+        <button id="jump-btn" disabled>跳转</button>
+    </div>
+    
+    <!-- 控制按钮区域 -->
+    <div class="controls">
+        <button id="prev-btn" disabled>上一句</button>
+        <button id="play-btn" disabled>播放句子</button>
+        <button id="next-btn" disabled>下一句</button>
+        <button id="show-answer-btn" disabled>显示答案</button>
+        <button id="restart-btn" disabled>重新开始</button>
+        <button id="hint-btn" disabled>提示单词</button>
+    </div>
+    
+    <div id="success-message" class="success-message"></div>
+    
+    <!-- 进度显示 -->
+    <div class="progress-container">
+        <div class="progress-info">
+            <span class="progress-label">练习进度</span>
+            <span class="progress-counter">
+                <span id="current-index">0</span>/<span id="total-sentences">0</span>
+            </span>
+        </div>
+        <progress id="progress-bar" value="0" max="100"></progress>
+    </div>
+    
+    <div class="help-text">
+        <div>键盘快捷键: 空格键 - 播放当前句子 | Enter键 - 完成后进入下一句</div>
+        <div class="keyboard-shortcuts">输入正确单词后系统会自动显示</div>
+    </div>
+</div>
+
+<script>
+    // =============== 核心数据结构 ===============
+    // displayArray 存储每个字符及其显示状态
+    let displayArray = []; // 格式：{ char: 'C', revealed: false, isLetter: true }
+    // normalizedArray 仅收录需要用户输入的字母（转为大写），记录其在 displayArray 中的索引
+    let normalizedArray = []; // 格式：{ targetChar: 'C', displayIndex: 0 }
+    // 指向 normalizedArray 中下一个待匹配字符的索引
+    let nextLetterIndex = 0;
+
+    // =============== 其他变量（音频、字幕） ===============
+    let audioElement = null;
+    let subtitles = [];
+    let currentSubtitleIndex = 0;
+    let currentSentence = "";
+    let isPlaying = false;
+
+    // =============== 获取 DOM 元素 ===============
+    const audioFileInput = document.getElementById('audio-file');
+    const subtitleFileInput = document.getElementById('subtitle-file');
+    const loadStatus = document.getElementById('load-status');
+    const playButton = document.getElementById('play-btn');
+    const nextButton = document.getElementById('next-btn');
+    const prevButton = document.getElementById('prev-btn');
+    const showAnswerButton = document.getElementById('show-answer-btn');
+    const restartButton = document.getElementById('restart-btn');
+    const hintButton = document.getElementById('hint-btn');
+    const dictationDisplay = document.getElementById('dictation-display');
+    const successMessage = document.getElementById('success-message');
+    const currentIndexDisplay = document.getElementById('current-index');
+    const totalSentencesDisplay = document.getElementById('total-sentences');
+    const progressBar = document.getElementById('progress-bar');
+    const sentenceSelector = document.getElementById('sentence-selector');
+    const jumpButton = document.getElementById('jump-btn');
+
+    // =============== 事件监听 ===============
+    audioFileInput.addEventListener('change', handleAudioFile);
+    subtitleFileInput.addEventListener('change', handleSubtitleFile);
+    playButton.addEventListener('click', playCurrentSentence);
+    nextButton.addEventListener('click', moveToNextSentence);
+    prevButton.addEventListener('click', moveToPreviousSentence);
+    showAnswerButton.addEventListener('click', showAnswer);
+    restartButton.addEventListener('click', restartSentence);
+    hintButton.addEventListener('click', hintNextWord);
+    jumpButton.addEventListener('click', jumpToSelectedSentence);
+    document.addEventListener('keydown', handleKeydown);
+
+    // =============== 加载音频文件 ===============
+    function handleAudioFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const url = URL.createObjectURL(file);
+        if (audioElement) {
+            audioElement.pause();
+            audioElement = null;
+        }
+        audioElement = new Audio(url);
+        audioElement.addEventListener('ended', function() {
+            isPlaying = false;
+        });
+        loadStatus.textContent = "音频已加载" + (subtitles.length > 0 ? "，字幕已加载。准备就绪！" : "，等待字幕文件...");
+        checkReadiness();
+    }
+
+    // =============== 加载字幕文件 ===============
+    function handleSubtitleFile(event) {
+        const file = event.target.files[0];
+        if (!file) return;
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            const content = e.target.result;
+            subtitles = parseSRT(content);
+            totalSentencesDisplay.textContent = subtitles.length;
+            progressBar.max = subtitles.length;
+            sentenceSelector.max = subtitles.length;
+            loadStatus.textContent = "字幕已加载" + (audioElement ? "，音频已加载。准备就绪！" : "，等待音频文件...");
+            checkReadiness();
+        };
+        reader.readAsText(file);
+    }
+
+    // =============== 检查是否准备就绪 ===============
+    function checkReadiness() {
+        if (audioElement && subtitles.length > 0) {
+            playButton.disabled = false;
+            nextButton.disabled = false;
+            prevButton.disabled = true; // 初始时上一句按钮禁用
+            showAnswerButton.disabled = false;
+            restartButton.disabled = false;
+            hintButton.disabled = false;
+            sentenceSelector.disabled = false;
+            jumpButton.disabled = false;
+            currentSubtitleIndex = 0;
+            setCurrentSentence(subtitles[currentSubtitleIndex].text);
+            currentIndexDisplay.textContent = currentSubtitleIndex + 1;
+            progressBar.value = currentSubtitleIndex + 1;
+            sentenceSelector.value = currentSubtitleIndex + 1;
+        }
+    }
+
+    // =============== 解析 SRT 文件 ===============
+    function parseSRT(content) {
+        const srtRegex = /(\d+)\n(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})\n([\s\S]*?)(?=\n\n\d+\n|\n*$)/g;
+        const results = [];
+        let match;
+        while ((match = srtRegex.exec(content)) !== null) {
+            const index = parseInt(match[1]);
+            const startTime = parseTimeString(match[2]);
+            const endTime = parseTimeString(match[3]);
+            let text = match[4].trim().replace(/\n/g, ' ');
+            results.push({ index, startTime, endTime, text });
+        }
+        return results;
+    }
+
+    function parseTimeString(timeString) {
+        const [hours, minutes, seconds] = timeString.replace(',', '.').split(':');
+        return parseFloat(hours) * 3600 + parseFloat(minutes) * 60 + parseFloat(seconds);
+    }
+
+    // =============== 设置当前句子并初始化 ===============
+    function setCurrentSentence(sentence) {
+        currentSentence = sentence;
+        successMessage.textContent = "";
+        successMessage.classList.remove('show');
+        buildDisplayArrays(sentence);
+        updateDictationDisplay();
+    }
+
+    // =============== 播放当前句子 ===============
+    function playCurrentSentence() {
+        if (!audioElement || subtitles.length === 0) return;
+        const subtitle = subtitles[currentSubtitleIndex];
+        audioElement.currentTime = subtitle.startTime;
+        
+        // 移除之前可能添加的timeupdate事件监听器
+        audioElement.removeEventListener('timeupdate', checkAudioTime);
+        
+        // 添加timeupdate事件监听器来检查音频当前时间
+        audioElement.addEventListener('timeupdate', checkAudioTime);
+        
+        // 检查音频当前时间的函数
+        function checkAudioTime() {
+            if (audioElement.currentTime >= subtitle.endTime) {
+                audioElement.pause();
+                isPlaying = false;
+                // 移除事件监听器避免内存泄漏
+                audioElement.removeEventListener('timeupdate', checkAudioTime);
+            }
+        }
+        
+        audioElement.play();
+        isPlaying = true;
+    }
+
+    // =============== 下一句 ===============
+    function moveToNextSentence() {
+        if (currentSubtitleIndex < subtitles.length - 1) {
+            currentSubtitleIndex++;
+            setCurrentSentence(subtitles[currentSubtitleIndex].text);
+            currentIndexDisplay.textContent = currentSubtitleIndex + 1;
+            progressBar.value = currentSubtitleIndex + 1;
+            sentenceSelector.value = currentSubtitleIndex + 1;
+            prevButton.disabled = false; // 启用上一句按钮
+            if (currentSubtitleIndex >= subtitles.length - 1) {
+                nextButton.disabled = true; // 最后一句时禁用下一句按钮
+            }
+            
+            // 自动播放当前句子的音频
+            playCurrentSentence();
+        }
+    }
+
+    // =============== 上一句 ===============
+    function moveToPreviousSentence() {
+        if (currentSubtitleIndex > 0) {
+            currentSubtitleIndex--;
+            setCurrentSentence(subtitles[currentSubtitleIndex].text);
+            currentIndexDisplay.textContent = currentSubtitleIndex + 1;
+            progressBar.value = currentSubtitleIndex + 1;
+            sentenceSelector.value = currentSubtitleIndex + 1;
+            nextButton.disabled = false; // 启用下一句按钮
+            if (currentSubtitleIndex <= 0) {
+                prevButton.disabled = true; // 第一句时禁用上一句按钮
+            }
+            
+            // 自动播放当前句子的音频
+            playCurrentSentence();
+        }
+    }
+
+    // =============== 跳转到选定的句子 ===============
+    function jumpToSelectedSentence() {
+        const selectedIndex = parseInt(sentenceSelector.value) - 1;
+        if (isNaN(selectedIndex) || selectedIndex < 0 || selectedIndex >= subtitles.length) {
+            alert("请输入有效的句子编号！");
+            return;
+        }
+        
+        currentSubtitleIndex = selectedIndex;
+        setCurrentSentence(subtitles[currentSubtitleIndex].text);
+        currentIndexDisplay.textContent = currentSubtitleIndex + 1;
+        progressBar.value = currentSubtitleIndex + 1;
+        
+        // 更新按钮状态
+        prevButton.disabled = (currentSubtitleIndex <= 0);
+        nextButton.disabled = (currentSubtitleIndex >= subtitles.length - 1);
+        
+        // 自动播放当前句子的音频
+        playCurrentSentence();
+    }
+
+    // =============== 显示答案（全部揭示） ===============
+    function showAnswer() {
+        displayArray.forEach(item => {
+            if (item.isLetter) {
+                item.revealed = true;
+            }
+        });
+        updateDictationDisplay();
+        successMessage.textContent = "答案已显示！";
+        successMessage.classList.add('show');
+    }
+
+    // =============== 重新开始当前句子 ===============
+    function restartSentence() {
+        buildDisplayArrays(currentSentence);
+        updateDictationDisplay();
+        nextLetterIndex = 0;
+        successMessage.textContent = "";
+        successMessage.classList.remove('show');
+    }
+
+    // =============== 提示下一个单词 ===============
+    function hintNextWord() {
+        if (nextLetterIndex >= normalizedArray.length) return;
+        // 找到第一个未揭示的字母对应的 displayArray 下标
+        const unrevealedObj = normalizedArray[nextLetterIndex];
+        const idx = unrevealedObj.displayIndex;
+        // 确定当前单词边界：以空格为分隔
+        let wordStart = idx;
+        while(wordStart > 0 && displayArray[wordStart - 1].char !== " ") {
+            wordStart--;
+        }
+        let wordEnd = idx;
+        while(wordEnd < displayArray.length && displayArray[wordEnd].char !== " ") {
+            wordEnd++;
+        }
+        // 揭示这个单词中所有需要用户输入的字母
+        for (let i = wordStart; i < wordEnd; i++) {
+            if (displayArray[i].isLetter) {
+                displayArray[i].revealed = true;
+            }
+        }
+        // 重新计算下一个待匹配字符的索引
+        nextLetterIndex = normalizedArray.filter(obj => displayArray[obj.displayIndex].revealed).length;
+        updateDictationDisplay();
+        if (nextLetterIndex >= normalizedArray.length) {
+            successMessage.textContent = "恭喜！您已正确输入完整句子！";
+            successMessage.classList.add('show');
+        }
+    }
+
+    function handleKeydown(e) {
+        if (!currentSentence) return;
+        
+        // 检查是否同时按下 Command 键和 Enter 键
+        if (e.key === "Enter" && e.metaKey) {
+            hintNextWord();  // 显示下一个单词
+            return;
+        }
+
+        // 按下 Enter 键时，如果句子已完成则进入下一个句子
+        if (e.key === "Enter") {
+            // 如果所有字母都已输入完成或显示过答案，按 Enter 自动进入下一句
+            if (nextLetterIndex >= normalizedArray.length && currentSubtitleIndex < subtitles.length - 1) {
+                moveToNextSentence();  // 跳到下一句
+                return;
+            }
+        }
+
+        // 按下向左箭头键时提示下一个单词
+        if (e.key === "ArrowLeft") {
+            hintNextWord();  // 显示下一个单词
+            return;
+        }
+
+        // 按下空格键时播放当前句子
+        if (e.key === " ") {
+            e.preventDefault(); // 阻止空格键的默认行为（例如滚动页面）
+            playCurrentSentence();
+            return;
+        }
+
+        // 处理输入的字符并与目标字符匹配
+        if (e.key.length !== 1) return;
+        if (nextLetterIndex >= normalizedArray.length) return;
+        const inputChar = e.key.toUpperCase();
+        const { targetChar, displayIndex } = normalizedArray[nextLetterIndex];
+        if (inputChar === targetChar) {
+            displayArray[displayIndex].revealed = true;
+            nextLetterIndex++;
+            updateDictationDisplay();
+            if (nextLetterIndex >= normalizedArray.length) {
+                successMessage.textContent = "恭喜！您已正确输入完整句子！";
+                successMessage.classList.add('show');
+            }
+        } else {
+            flashError();
+        }
+    }
+
+
+
+
+
+    // =============== 构建 displayArray 与 normalizedArray ===============
+    function buildDisplayArrays(sentence) {
+        displayArray = [];
+        normalizedArray = [];
+        nextLetterIndex = 0;
+        // 仅将字母设为需要用户输入，其它（空格、标点）自动显示
+        for (let i = 0; i < sentence.length; i++) {
+            const ch = sentence[i];
+            const isLetter = /[a-zA-Z]/.test(ch);
+            displayArray.push({
+                char: ch,
+                revealed: !isLetter,
+                isLetter: isLetter
+            });
+        }
+        // 构建 normalizedArray：只包含需要输入的字母（转为大写）
+        for (let i = 0; i < displayArray.length; i++) {
+            if (displayArray[i].isLetter) {
+                normalizedArray.push({
+                    targetChar: displayArray[i].char.toUpperCase(),
+                    displayIndex: i
+                });
+            }
+        }
+    }
+
+    // =============== 更新显示（用 * 替换未揭示字母，并以单词分隔） ===============
+    function updateDictationDisplay() {
+        let html = "";
+        let currentWord = "";
+        
+        for (let i = 0; i < displayArray.length; i++) {
+            const currentChar = displayArray[i].revealed ? displayArray[i].char : "*";
+            
+            if (displayArray[i].char === " ") {
+                // 当遇到空格时，将当前单词包装为span并添加到HTML中
+                if (currentWord) {
+                    html += `<span class="word">${currentWord}</span> `;
+                    currentWord = "";
+                }
+            } else {
+                currentWord += currentChar;
+            }
+        }
+        
+        // 添加最后一个单词
+        if (currentWord) {
+            html += `<span class="word">${currentWord}</span>`;
+        }
+        
+        dictationDisplay.innerHTML = html;
+    }
+
+    // =============== 错误闪烁，仅对当前单词添加样式 ===============
+    function flashError() {
+        if (nextLetterIndex >= normalizedArray.length) return;
+        
+        // 找到当前正在输入的单词
+        const currentLetterDisplayIndex = normalizedArray[nextLetterIndex].displayIndex;
+        
+        // 确定当前单词在句子中的位置
+        let wordStart = currentLetterDisplayIndex;
+        while(wordStart > 0 && displayArray[wordStart - 1].char !== " ") {
+            wordStart--;
+        }
+        
+        let wordEnd = currentLetterDisplayIndex;
+        while(wordEnd < displayArray.length && displayArray[wordEnd].char !== " ") {
+            wordEnd++;
+        }
+        
+        // 计算当前单词是句子中的第几个单词
+        let wordCount = 0;
+        for (let i = 0; i < wordStart; i++) {
+            if (displayArray[i].char === " " && i > 0 && displayArray[i-1].char !== " ") {
+                wordCount++;
+            }
+        }
+        
+        // 获取所有单词的span元素
+        const wordSpans = dictationDisplay.querySelectorAll('.word');
+        
+        // 只让当前输入的单词闪烁
+        if (wordCount < wordSpans.length) {
+            wordSpans[wordCount].classList.add('error-flash');
+            setTimeout(() => {
+                wordSpans[wordCount].classList.remove('error-flash');
+            }, 300);
+        }
+    }
+</script>
+</body>
+</html>
